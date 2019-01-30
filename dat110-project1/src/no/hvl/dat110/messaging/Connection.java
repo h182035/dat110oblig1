@@ -44,8 +44,7 @@ public class Connection {
 
 		Message message;
 		byte[] recvbuf;
-		// Dette er garantert feil. variabel i skal sjekke første byte får å se hvor mange bytes som kommer,
-		// men den tar imot 4 første bytes, og jeg tror i bits, ikke i desimaltall.
+		// Litt usikker på om i får inn antall bytes, og litt usikker på om bytes blir lagret i message
 		// read a segment from the input stream and decapsulate into message
 		int i;
 		try {
