@@ -14,19 +14,22 @@ public class MessagingClient {
 		this.port = port;
 	}
 
-	// connect to messaging server
+	/**
+	 * @return null if failed to connect
+	 */
 	public Connection connect() {
 
 		Socket clientSocket;
 		Connection connection = null;
-
-		// TODO
-		// create TCP socket for client and connection
-
-		if (true) {
-			throw new RuntimeException("not yet implemented");
+		
+		try {
+			clientSocket = new Socket(server, port);
+			connection = new Connection(clientSocket);
+		} catch (IOException e) {
+			System.err.println("KLARTE IKKE Å LAGE SOCKET TIL CLIENT");
+			e.printStackTrace();
 		}
-
+		
 		return connection;
 	}
 }
