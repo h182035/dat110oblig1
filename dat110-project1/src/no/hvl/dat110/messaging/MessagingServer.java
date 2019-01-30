@@ -21,16 +21,19 @@ public class MessagingServer {
 		}
 	}
 
-	// accept an incoming connection from a client
+	/**
+	 * @return null if failed to connect
+	 */
 	public Connection accept() {
 
 		Connection connection = null;
 
-		// TODO
-		// accept TCP connection on welcome socket and create connection
-
-		if (true) {
-			throw new RuntimeException("not yet implemented");
+		try {
+			Socket acceptedSocket = welcomeSocket.accept();
+			connection = new Connection(acceptedSocket);
+		} catch (IOException e) {
+			System.err.println("KLARTE IKKE Å LAGE SOCKET TIL CLIENT");
+			e.printStackTrace();
 		}
 
 		return connection;
