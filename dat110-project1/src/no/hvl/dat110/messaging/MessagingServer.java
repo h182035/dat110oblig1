@@ -11,7 +11,7 @@ public class MessagingServer {
 	public MessagingServer(int port) {
 
 		try {
-
+			//FIXME Address already in use: JVM_Bind
 			this.welcomeSocket = new ServerSocket(port);
 
 		} catch (IOException ex) {

@@ -36,7 +36,6 @@ public class Connection {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		throw new RuntimeException("not yet implemented");
 
 	}
 
