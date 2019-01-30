@@ -29,10 +29,13 @@ public class Connection {
 	}
 
 	public void send(Message message) {
-
-		// TODO
+		// Tror det fungerer som det skal. Litt usikker på "encapsulate" - Ole
 		// encapsulate the data contained in the message and write to the output stream
-
+		try {
+			outStream.write(message.encapsulate());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		throw new RuntimeException("not yet implemented");
 
 	}
@@ -41,16 +44,30 @@ public class Connection {
 
 		Message message;
 		byte[] recvbuf;
-
-		// TODO
+		// Dette er garantert feil. variabel i skal sjekke første byte får å se hvor mange bytes som kommer,
+		// men den tar imot 4 første bytes, og jeg tror i bits, ikke i desimaltall.
 		// read a segment from the input stream and decapsulate into message
+		int i;
+		try {
+			i = inStream.readByte();
+			recvbuf = new byte[i];
+			for (int j = 0; j < i; j++) {
 
-		if (true) {
-			throw new RuntimeException("not yet implemented");
+				recvbuf[j] = inStream.readByte();
+
+			}
+			message = new Message();
+			message.decapsulate(recvbuf);
+			return message;
+		} catch (IOException e1) {
+			e1.printStackTrace();
+			return null;
 		}
 
-		return message;
+		
 
+		
+		
 	}
 
 	// close the connection by closing streams and the underlying socket
