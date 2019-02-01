@@ -45,16 +45,30 @@ public class RPCServer {
 		   // - invoke the method
 		   // - send back message containing RPC reply
 			
-		   if (true) {
-		     throw new RuntimeException("not yet implemented");
-		   }
+		   Message received = connection.receive();
+		   byte[] data = received.getData();
+		   rpcid = data[0];
 		   
+		  RPCImpl method = services.get(rpcid);
+		   
+		  
+		  if(method != null) {
+			  method.invoke(data);
+		  }
+		  
+		  
 		   if (rpcid == RPCCommon.RPIDSTOP) {
 			   stop = true;
 		   }
+		   
+			   
+		   
+		   
+		   
 		}
 	
 	}
+	
 	
 	public void register(int rmid, RPCImpl impl) {
 		services.put(rmid, impl);
