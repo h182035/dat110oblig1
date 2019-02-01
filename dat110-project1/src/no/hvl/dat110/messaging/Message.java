@@ -8,8 +8,10 @@ public class Message {
 	private byte[] payload;
 
 	public Message(byte[] payload) {
-		this.payload = payload; // TODO: check for length within boundary. Done.
-		System.out.println(payload.length);
+		if(payload.length <= MessageConfig.SEGMENTSIZE) {
+			this.payload = payload; 
+		}
+		
 	}
 
 	public Message() {
