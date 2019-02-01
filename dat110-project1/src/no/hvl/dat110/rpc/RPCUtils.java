@@ -7,7 +7,7 @@ public class RPCUtils {
 
 	public static byte[] marshallString(byte rpcid, String str){
 		// Sett rpcid -> [0] og resten av stringen inn etterpå.
-		// Hva er rpcid? Og hva blir den brukt til?
+		// Hva er rpcid? Og hva blir den brukt til?s
 		int length;
 
 		if (str == null)
