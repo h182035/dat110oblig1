@@ -46,7 +46,7 @@ public class Connection {
 		// Litt usikker på om i får inn antall bytes, og litt usikker på om bytes blir lagret i message
 		// read a segment from the input stream and decapsulate into message
 		try {
-			int i = inStream.read(recvbuf, 0, MessageConfig.SEGMENTSIZE);
+			inStream.read(recvbuf, 0, MessageConfig.SEGMENTSIZE);
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
