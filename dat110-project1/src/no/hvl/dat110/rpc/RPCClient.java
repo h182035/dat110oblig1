@@ -2,7 +2,7 @@ package no.hvl.dat110.rpc;
 
 import no.hvl.dat110.messaging.*;
 
-public class RPCClient {
+public class RPCClient extends RPCStub {
 
 	private MessagingClient msgclient;
 	private Connection connection;
@@ -17,18 +17,14 @@ public class RPCClient {
 	}
 	
 	public void connect() {
-		
-		// TODO: connect using the underlying messaging layer connection
-		
-	    throw new RuntimeException("not yet implemented");
+		// Er det så lett?
+		connection = msgclient.connect();
 			
 	}
 	
 	public void disconnect() {
-		
-		// TODO: disconnect/close the underlying messaging connection
-		
-		throw new RuntimeException("not yet implemented");
+		// er det så lett?
+		connection.close();
 		
 	}
 	
@@ -45,10 +41,12 @@ public class RPCClient {
 		rpctreply is the rpcreply to be unmarshalled by the client-stub
 		
 		*/
-		
-		if (true) {
-		  throw new RuntimeException("not yet implemented");
-		}
+		Message melding = new Message();
+		melding.decapsulate(rpcrequest);
+		connection.send(melding);
+		Message reply = connection.receive();
+		rpcreply = reply.encapsulate();
+	
 		
 		return rpcreply;
 		
