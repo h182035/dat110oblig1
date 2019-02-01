@@ -24,20 +24,27 @@ public class Message {
 				
 		// TODO
 		// encapulate/encode the payload of the message. Done, må sees nærmere på 
-		byte[] encoded = Base64.getEncoder().encode(getData());
-		System.out.println(new String(encoded));	
+		int lengde = payload.length;
+		byte[] encapsulated = new byte[MessageConfig.SEGMENTSIZE];
+		encapsulated[0] = (byte) lengde;
 		
-		return encoded;
+		for(int i = 1; i < lengde+1; i++) {
+			encapsulated[i] = payload[i-1];
+		}
+		
+		return encapsulated;
 		
 	}
 
 
 	public void decapsulate(byte[] received) {
 
-		// TODO
-		// decapsulate data in received and put in payload. Done, må sees nærmere på 
-		byte[] decoded = Base64.getDecoder().decode(received);
-		System.out.println(new String(decoded));		
+		// decapsulate data in received and put in payload. Done, må sees nærmere på
+		payload = new byte[received[0]];
+		
+		for(int i = 1; i < received[0]+1; i++) {
+			payload[i-1] = received[i];
+		}
 		
 	}
 }

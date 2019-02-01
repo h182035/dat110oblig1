@@ -42,28 +42,19 @@ public class Connection {
 	public Message receive() {
 
 		Message message;
-		byte[] recvbuf;
+		byte[] recvbuf = new byte[MessageConfig.SEGMENTSIZE];
 		// Litt usikker på om i får inn antall bytes, og litt usikker på om bytes blir lagret i message
 		// read a segment from the input stream and decapsulate into message
-		int i;
 		try {
-			i = inStream.readByte();
-			recvbuf = new byte[i];
-			for (int j = 0; j < i; j++) {
-
-				recvbuf[j] = inStream.readByte();
-
-			}
-			message = new Message();
-			message.decapsulate(recvbuf);
-			return message;
-		} catch (IOException e1) {
-			e1.printStackTrace();
-			return null;
+			int i = inStream.read(recvbuf, 0, MessageConfig.SEGMENTSIZE);
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-
-		
-
+		message = new Message();
+		message.decapsulate(recvbuf);
+		return message;
 		
 		
 	}
