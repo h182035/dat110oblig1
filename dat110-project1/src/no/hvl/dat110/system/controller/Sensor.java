@@ -1,6 +1,7 @@
 package no.hvl.dat110.system.controller;
 
 import no.hvl.dat110.rpc.*;
+import no.hvl.dat110.system.sensor.SensorImpl;
 
 public class Sensor extends RPCStub {
 
@@ -8,14 +9,14 @@ public class Sensor extends RPCStub {
 	
 	public int read() {
 		
-		int temp;
 		
-		// TODO
+		
 		// implement marshalling, call and unmarshalling for read RPC method
+		byte[] marshalled = RPCUtils.marshallVoid(RPCID);
+		SensorImpl im = new SensorImpl();
+		byte[] reply = im.invoke(marshalled);
+		int temp = RPCUtils.unmarshallInteger(reply);
 		
-		if (true) {
-			  throw new RuntimeException("not yet implemented");
-		}
 		
 		return temp;
 	}
