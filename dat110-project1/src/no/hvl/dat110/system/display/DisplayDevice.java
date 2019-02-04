@@ -10,13 +10,16 @@ public class DisplayDevice {
 		
 		System.out.println("Display server starting ...");
 		
-		// TODO
-		// implement the operation of the display RPC server
-		// see how this is done for the sensor RPC server in SensorDevice
+		DisplayImpl display = new DisplayImpl();
 		
-		if (true) {
-			  throw new RuntimeException("not yet implemented");
-		}
+		RPCServer displayServer = new RPCServer(Common.DISPLAYPORT);
+		
+		//første tall er nøkkel. Kanskje 2 er feil nøkkel? nøkkelen er 1 i sensordevice.
+		displayServer.register(2, display);
+		
+		displayServer.run();
+		
+		displayServer.stop();
 		
 		System.out.println("Display server stopping ...");
 		
