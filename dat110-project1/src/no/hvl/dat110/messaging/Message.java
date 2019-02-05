@@ -41,13 +41,17 @@ public class Message {
 
 		// decapsulate data in received and put in payload. Done, må sees nærmere på
 		payload = new byte[received[0]];
-		if (payload.length == 1) {
-			payload[0] = 0;
-		} else {
-			for (int i = 1; i < received.length; i++) {
-				payload[i - 1] = received[i];
+		System.out.println((int) received[0]);
+		if(payload.length!= 0) {
+			if (payload.length == 1) {
+				payload[0] = 0;
+			} else {
+				for (int i = 0; i < payload.length; i++) {
+					payload[i] = received[i+1];
+				}
 			}
 		}
+		
 
 	}
 }
