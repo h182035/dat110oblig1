@@ -2,6 +2,7 @@ package no.hvl.dat110.system.controller;
 
 import no.hvl.dat110.rpc.RPCClient;
 import no.hvl.dat110.rpc.RPCServerStopStub;
+import no.hvl.dat110.rpc.RPCUtils;
 
 public class Controller  {
 	
@@ -19,28 +20,35 @@ public class Controller  {
 		RPCServerStopStub stopdisplay = new RPCServerStopStub();
 		RPCServerStopStub stopsensor = new RPCServerStopStub();
 		
-		displayclient = new RPCClient(Common.DISPLAYHOST,Common.DISPLAYPORT);
-		sensorclient = new RPCClient(Common.SENSORHOST,Common.SENSORPORT);
+		
 		
 		// TODO
 		// create display and sensor object
 		// create RPC clients for display device and sensor device
 		// register RPC methods in the RPC layer
 		
-		if (true) {
-			  throw new RuntimeException("not yet implemented");
-		}
+		sensor = new Sensor();
+		display = new Display();
+		displayclient = new RPCClient(Common.DISPLAYHOST,Common.DISPLAYPORT);
+		sensorclient = new RPCClient(Common.SENSORHOST,Common.SENSORPORT);
+		displayclient.register(sensor);
+		sensorclient.register(display);
 		
 		// register stop methods in the RPC middleware
 		displayclient.register(stopdisplay);
 		sensorclient.register(stopsensor);
 		
-		// TODO:
-		// loop while reading from sensor and write to display via RPC
 		
-		if (true) {
-			  throw new RuntimeException("not yet implemented");
-			}
+		// loop while reading from sensor and write to display via RPC
+		for(int i = 0; i < 5; i++) {
+			int read = sensor.read();
+			byte sensorid = 1;
+			byte[] readmarshalled = RPCUtils.marshallInteger(sensorid, read);
+			byte[] sensorreply = sensorclient.call(readmarshalled);
+			displayclient.call(sensorreply);
+		}
+			
+		
 		
 		stopdisplay.stop();
 		stopsensor.stop();

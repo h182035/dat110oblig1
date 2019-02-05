@@ -41,6 +41,7 @@ public class RPCClient extends RPCStub {
 		rpctreply is the rpcreply to be unmarshalled by the client-stub
 		
 		*/
+		
 		Message melding = new Message();
 		melding.decapsulate(rpcrequest);
 		connection.send(melding);
