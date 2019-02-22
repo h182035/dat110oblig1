@@ -53,8 +53,7 @@ public class RPCServer {
 		   
 		  
 		  if(method != null) {
-			  Message melding = new Message();
-			  melding.decapsulate(method.invoke(data));
+			  Message melding = new Message(method.invoke(data));
 			  connection.send(melding);
 		  }
 		  

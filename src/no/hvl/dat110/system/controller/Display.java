@@ -11,10 +11,9 @@ public class Display extends RPCStub {
 	public void write(String message) {
 
 		// implement marshalling, call and unmarshalling for write RPC method
-		byte[] marshalled = RPCUtils.marshallString(RPCID, message);
+		byte[] marshalled = rmiclient.call(RPCUtils.marshallString(RPCID, message));
 		DisplayImpl display = new DisplayImpl();
 		byte[] reply = display.invoke(marshalled);
-		
 		System.out.println(RPCUtils.unmarshallString(reply));
 		
 	}

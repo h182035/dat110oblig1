@@ -16,7 +16,7 @@ public class DisplayImpl implements RPCImpl {
 		write(message);
 		
 		byte rpcid = request[0];
-		byte[] reply = RPCUtils.marshallString(rpcid, message);
+		byte[] reply = RPCUtils.marshallVoid(rpcid);
 		
 		return reply;
 	}

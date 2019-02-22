@@ -15,7 +15,7 @@ public class DisplayDevice {
 		RPCServer displayServer = new RPCServer(Common.DISPLAYPORT);
 		
 		//første tall er nøkkel. Kanskje 2 er feil nøkkel? nøkkelen er 1 i sensordevice.
-		displayServer.register(2, display);
+		displayServer.register(1, display);
 		
 		displayServer.run();
 		

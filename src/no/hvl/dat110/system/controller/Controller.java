@@ -31,13 +31,14 @@ public class Controller  {
 		display = new Display();
 		displayclient = new RPCClient(Common.DISPLAYHOST,Common.DISPLAYPORT);
 		sensorclient = new RPCClient(Common.SENSORHOST,Common.SENSORPORT);
-		displayclient.register(sensor);
-		sensorclient.register(display);
+		displayclient.connect();
+		sensorclient.connect();
+		displayclient.register(display);
+		sensorclient.register(sensor);
 		
 		// register stop methods in the RPC middleware
 		displayclient.register(stopdisplay);
 		sensorclient.register(stopsensor);
-		
 		
 		// loop while reading from sensor and write to display via RPC
 		for(int i = 0; i < 5; i++) {
@@ -46,15 +47,21 @@ public class Controller  {
 			byte[] readmarshalled = RPCUtils.marshallInteger(sensorid, read);
 			byte[] sensorreply = sensorclient.call(readmarshalled);
 			displayclient.call(sensorreply);
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 			
-		
+		displayclient.disconnect();
+		sensorclient.disconnect();
 		
 		stopdisplay.stop();
 		stopsensor.stop();
 	
-		displayclient.disconnect();
-		sensorclient.disconnect();
+		
 		
 		System.out.println("Controller stopping ...");
 		
