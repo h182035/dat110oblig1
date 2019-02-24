@@ -31,13 +31,15 @@ public class Connection {
 		}
 	}
 
-	public void send(Message message) {
-		// Tror det fungerer som det skal. Litt usikker på "encapsulate" - Ole
+	public boolean send(Message message) {
+		// Tror det fungerer som det skal. Litt usikker pï¿½ "encapsulate" - Ole
 		// encapsulate the data contained in the message and write to the output stream
 		try {
 			outStream.write(message.encapsulate());
+			return true;
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.err.println("COULD NOT SEND MESSAGE. PERHAPS THE RECIEVING SOCKET HAS CLOSED");
+			return false;
 		}
 
 	}
@@ -46,13 +48,13 @@ public class Connection {
 
 		Message message;
 		byte[] recvbuf = new byte[MessageConfig.SEGMENTSIZE];
-		// Litt usikker på om i får inn antall bytes, og litt usikker på om bytes blir lagret i message
+		// Litt usikker pï¿½ om i fï¿½r inn antall bytes, og litt usikker pï¿½ om bytes blir lagret i message
 		// read a segment from the input stream and decapsulate into message
 		try {
 			inStream.read(recvbuf, 0, MessageConfig.SEGMENTSIZE);
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			// TODO Auto-generated catch blockSystem.out.println("ERROR: " + message);
 			e.printStackTrace();
 		}
 		message = new Message();

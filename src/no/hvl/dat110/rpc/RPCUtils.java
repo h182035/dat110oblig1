@@ -6,7 +6,7 @@ import java.util.Arrays;
 public class RPCUtils {
 
 	public static byte[] marshallString(byte rpcid, String str){
-		// Sett rpcid -> [0] og resten av stringen inn etterpå.
+		// Sett rpcid -> [0] og resten av stringen inn etterpï¿½.
 		// Hva er rpcid? Og hva blir den brukt til?s
 		int length;
 
@@ -52,7 +52,7 @@ public class RPCUtils {
 
 	public static void unmarshallVoid(byte[] data) {
 
-		// TODO: unmarshall void type
+		// unmarshall void type
 		byte[] nydata =  new byte[data.length-1];
 		for(int i = 0; i < nydata.length; i++) {
 			nydata[i] = data[i+1];

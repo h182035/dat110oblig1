@@ -14,7 +14,7 @@ class TestSystem {
 	void test() {
 
 		System.out.println("System starting ...");
-
+		//Oppretter displayDevice, sonsordevice og controller.
 		Runnable display = () -> DisplayDevice.main(null);
 		Runnable sensor = () -> SensorDevice.main(null);
 		Runnable controller = () -> Controller.main(null);

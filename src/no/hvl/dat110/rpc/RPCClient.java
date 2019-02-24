@@ -1,54 +1,59 @@
 package no.hvl.dat110.rpc;
 
-import no.hvl.dat110.messaging.*;
+import no.hvl.dat110.messaging.Connection;
+import no.hvl.dat110.messaging.Message;
+import no.hvl.dat110.messaging.MessagingClient;
 
 public class RPCClient extends RPCStub {
 
 	private MessagingClient msgclient;
 	private Connection connection;
-	
+
 	public RPCClient(String server, int port) {
-	
-		msgclient = new MessagingClient(server,port);
+
+		msgclient = new MessagingClient(server, port);
 	}
-	
+
 	public void register(RPCStub remote) {
 		remote.register(this);
 	}
-	
+
 	public void connect() {
-		// Er det så lett?
+		// Er det sï¿½ lett?
 		connection = msgclient.connect();
-			
+
 	}
-	
+
 	public void disconnect() {
-		// er det så lett?
+		// er det sï¿½ lett?
 		connection.close();
-		
+
 	}
-	
+
 	public byte[] call(byte[] rpcrequest) {
-		
-		byte[] rpcreply;
-		
-		/* TODO: 
-		
-		Make a remote call on the RPC server by sending a request message
-		and receive a reply message
-		
-		rpcrequest is the marshalled rpcrequest from the client-stub
-		rpctreply is the rpcreply to be unmarshalled by the client-stub
-		
-		*/
+
+		byte[] rpcreply = {0};
+
+		/*
+		 * TODO:
+		 * 
+		 * Make a remote call on the RPC server by sending a request message and receive
+		 * a reply message
+		 * 
+		 * rpcrequest is the marshalled rpcrequest from the client-stub rpctreply is the
+		 * rpcreply to be unmarshalled by the client-stub
+		 * 
+		 */
 		Message melding = new Message(rpcrequest);
-		connection.send(melding);
-		Message reply = connection.receive();
-		rpcreply = reply.getData();
-	
-		
+		if (connection.send(melding)) {
+			Message reply = connection.receive();
+			rpcreply = reply.getData();
+		} else {
+			disconnect();
+		}
+
 		return rpcreply;
-		
+
 	}
 
 }
