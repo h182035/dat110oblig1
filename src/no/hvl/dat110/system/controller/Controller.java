@@ -42,24 +42,29 @@ public class Controller  {
 		
 		// loop while reading from sensor and write to display via RPC
 		for(int i = 0; i < 5; i++) {
-			int read = sensor.read();
-			byte sensorid = 1;
-			byte[] readmarshalled = RPCUtils.marshallInteger(sensorid, read);
-			byte[] sensorreply = sensorclient.call(readmarshalled);
-			displayclient.call(sensorreply);
+			String read = String.valueOf(sensor.read());
+//			byte sensorid = 1;
+//			byte[] readmarshalled = RPCUtils.marshallInteger(sensorid, read);
+//			byte[] sensorreply = sensorclient.call(readmarshalled);
+//			displayclient.call(sensorreply);
+			
+			display.write(read);
+			
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 			
-		displayclient.disconnect();
-		sensorclient.disconnect();
 		
 		stopdisplay.stop();
 		stopsensor.stop();
+		
+		displayclient.disconnect();
+		sensorclient.disconnect();
+		
+		
 	
 		
 		
