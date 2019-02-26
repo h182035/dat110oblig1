@@ -43,6 +43,7 @@ public class Controller  {
 		// loop while reading from sensor and write to display via RPC
 		for(int i = 0; i < 5; i++) {
 			String read = String.valueOf(sensor.read());
+
 //			byte sensorid = 1;
 //			byte[] readmarshalled = RPCUtils.marshallInteger(sensorid, read);
 //			byte[] sensorreply = sensorclient.call(readmarshalled);
