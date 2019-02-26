@@ -13,9 +13,9 @@ public class Sensor extends RPCStub {
 		
 		// implement marshalling, call and unmarshalling for read RPC method
 		byte[] marshalled = rmiclient.call(RPCUtils.marshallVoid(RPCID));
-		SensorImpl im = new SensorImpl();
-		byte[] reply = im.invoke(marshalled);
-		int temp = RPCUtils.unmarshallInteger(reply);
+//		SensorImpl im = new SensorImpl();
+//		byte[] reply = invoke(marshalled);
+		int temp = RPCUtils.unmarshallInteger(marshalled);
 		
 		
 		return temp;

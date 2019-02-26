@@ -5,6 +5,7 @@ import java.util.HashMap;
 import no.hvl.dat110.messaging.Connection;
 import no.hvl.dat110.messaging.Message;
 import no.hvl.dat110.messaging.MessagingServer;
+import no.hvl.dat110.system.sensor.SensorImpl;
 
 public class RPCServer {
 
@@ -49,12 +50,15 @@ public class RPCServer {
 
 			byte[] data = received.getData();
 			if (data.length > 0) {
-				rpcid = data[0];
+				rpcid = data[0];	
 
 				method = services.get(rpcid);
 			}
 
 			if (method != null) {
+				SensorImpl im = new SensorImpl();
+				byte[] reply = im.invoke(data);
+				int temp = RPCUtils.unmarshallInteger(reply);
 				Message melding = new Message(method.invoke(data));
 				connection.send(melding);
 			}
