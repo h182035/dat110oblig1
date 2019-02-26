@@ -50,7 +50,6 @@ public class Controller  {
 //			displayclient.call(sensorreply);
 			
 			display.write(read);
-			
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
